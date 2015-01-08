@@ -28,4 +28,5 @@ attribute :post_up,    kind_of: String
 attribute :pre_down,   kind_of: String
 attribute :down,       kind_of: [String, Array]
 attribute :post_down,  kind_of: String
+attribute :load,       kind_of: [TrueClass, FalseClass]
 attribute :custom,     kind_of: Hash

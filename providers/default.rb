@@ -39,11 +39,8 @@ action :save do
       "-i /etc/network/interfaces.d/#{new_resource.device} ; " \
       "ifup #{new_resource.device} " \
       "-i /etc/network/interfaces.d/#{new_resource.device}"
-    only_if "ifdown -n #{new_resource.device} " \
-      "-i /etc/network/interfaces.d/#{new_resource.device} ; " \
-      "ifup -n #{new_resource.device} " \
-      "-i /etc/network/interfaces.d/#{new_resource.device}"
     action :nothing
+    only_if  { new_resource.load }
   end
 
   template "/etc/network/interfaces.d/#{new_resource.device}" do
@@ -77,7 +74,7 @@ action :save do
       post_down:    Chef::Recipe::NetworkInterfaces.value(:post_down,  new_resource.device, new_resource, node),
       custom:       Chef::Recipe::NetworkInterfaces.value(:custom,     new_resource.device, new_resource, node)
     )
-    notifies :run, "execute[if_up #{new_resource.name}]", :immediately
+    notifies :run, "execute[if_up #{new_resource.name}]", :delayed
     notifies :create, 'ruby_block[Merge interfaces]', :delayed
   end
 
