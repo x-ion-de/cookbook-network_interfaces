@@ -6,22 +6,8 @@ action :save do
     new_resource.bridge = ['none']
   end
 
-  if new_resource.vlan_dev ||
-    new_resource.device =~ /(eth|bond|wlan)[0-9]+\.[0-9]+/
-    package 'vlan'
-    modules '8021q'
-  end
-
   if new_resource.bond && ! new_resource.bond.kind_of?(Array)
     new_resource.bond = ['none']
-  end
-
-  if new_resource.bond
-    package 'ifenslave-2.6'
-    modules 'bonding'
-    new_resource.bond.each do |bond_slave|
-      `ip address flush dev #{bond_slave}`
-    end
   end
 
   if new_resource.bootproto == 'dhcp'
