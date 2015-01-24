@@ -1,7 +1,4 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
-require 'chefspec/server'
 
-RSpec.configure do |config|
-  config.log_level = :fatal
-end
+ChefSpec::Coverage.start! { add_filter 'network_interfaces' }

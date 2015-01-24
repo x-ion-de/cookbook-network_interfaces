@@ -5,9 +5,6 @@ iface <%= @device %> <%= @family %> <%= @method %>
 <% if @address -%>
   address <%= @address %>
 <% end %>
-<% if @netmask -%>
-  netmask <%= @netmask %>
-<% end %>
 <% if @broadcast -%>
   broadcast <%= @broadcast %>
 <% end %>
@@ -26,6 +23,15 @@ iface <%= @device %> <%= @family %> <%= @method %>
 <% if @bond_slaves -%>
   bond-slaves<% @bond_slaves.each do |iface| %> <%= iface %><% end %>
 <% end %>
+<% if @bond_master -%>
+  bond-master <%= @bond_master %>
+<% end %>
+<% if @bond_miimon -%>
+  bond-miimon <%= @bond_miimon %>
+<% end %>
+<% if @bond_lacp_rate -%>
+  bond-lacp-rate <%= @bond_lacp_rate %>
+<% end %>
 <% if @bond_mode -%>
   bond-mode <%= @bond_mode %>
 <% end %>
@@ -41,33 +47,33 @@ iface <%= @device %> <%= @family %> <%= @method %>
 <% if @up -%>
   <% if @up.kind_of?(Array) -%>
     <% @up.flatten.each do |u| -%>
-      up <%= u %>
+  up <%= u %>
     <% end %>
   <% else -%>
-      up <%= @up %>
+  up <%= @up %>
   <% end %>
 <% end %>
 <% if @post_up -%>
-        post-up <%= @post_up %>
+  post-up <%= @post_up %>
 <% end %>
 <% if @pre_down -%>
-        pre-down <%= @pre_down %>
+  pre-down <%= @pre_down %>
 <% end %>
 <% if @down -%>
   <% if @down.kind_of?(Array) -%>
     <% @down.flatten.each do |d| -%>
-      down <%= d %>
+  down <%= d %>
     <% end %>
   <% else -%>
-      down <%= @down %>
+  down <%= @down %>
   <% end %>
 <% end %>
 <% if @post_down -%>
-        post-down <%= @post_down %>
+  post-down <%= @post_down %>
 <% end %>
 <% if @custom %>
 <% @custom.sort_by{ |instruc, command| instruc }.each do |instruc, command| -%>
-        <%= instruc %> <%= command %>
+  <%= instruc %> <%= command %>
 <% end %>
 <% end %>
 
