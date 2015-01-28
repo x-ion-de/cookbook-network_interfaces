@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
 describe 'network_interfaces::spec_recipe' do
-  let(:chef_run) do
+  cached(:chef_run) do
     ChefSpec::SoloRunner.new(step_into: ['network_interfaces'])
       .converge(described_recipe)
   end
@@ -34,6 +34,12 @@ describe 'network_interfaces::spec_recipe' do
             post_down: 'post_down',
             custom:  { custom: 'hash' }
            )
+  end
+
+  %w(ifenslave-2.6 vlan ifmetric bridge-utils).each do |p|
+    it "installs the package #{p}" do
+      expect(chef_run).to install_package(p)
+    end
   end
 
   it 'create the /etc/network/interfaces.d/directory' do

@@ -1,2 +1,5 @@
 Style/FileName:
   Enabled: false
+AllCops:
+  Exclude:
+    - 'berks-cookbooks/**/*'

@@ -16,14 +16,14 @@ action :create do
 
   if node['network_interfaces']['autoinstall_packages']
     package 'ifmetric' if new_resource.metric
-    package 'bridge-utils' if new_resource.bridge
-    package 'vlan' if new_resource.vlan
-    package 'ifenslave-2.6' if new_resource.bond
+    package 'bridge-utils' if new_resource.bridge_ports
+    package 'vlan' if new_resource.vlan_dev
+    package 'ifenslave-2.6' if new_resource.bond_slaves
   end
 
   if node['network_interfaces']['autoload_modules']
-    modules '8021q' if new_resource.vlan
-    modules 'bonding' if new_resource.bond
+    modules '8021q' if new_resource.vlan_dev
+    modules 'bonding' if new_resource.bond_slaves
   end
 
   template "/etc/network/interfaces.d/#{new_resource.device}" do
