@@ -2,8 +2,12 @@ require_relative 'spec_helper'
 
 describe 'network_interfaces::spec_recipe' do
   cached(:chef_run) do
-    ChefSpec::SoloRunner.new(step_into: ['network_interfaces'])
-      .converge(described_recipe)
+    ChefSpec::SoloRunner.new(
+      platform: 'ubuntu',
+      version: '16.04',
+      step_into: ['network_interfaces']
+    )
+                        .converge(described_recipe)
   end
 
   it 'creates a network interface with the lwrp' do
@@ -32,8 +36,7 @@ describe 'network_interfaces::spec_recipe' do
             pre_down: 'pre_down',
             down: 'down',
             post_down: 'post_down',
-            custom:  { custom: 'hash' }
-           )
+            custom:  { custom: 'hash' })
   end
 
   %w(ifenslave-2.6 vlan ifmetric bridge-utils).each do |p|
@@ -56,7 +59,7 @@ describe 'network_interfaces::spec_recipe' do
   it 'renders the template for the interface correctly' do
     [/^auto spec$/,
      /^iface spec inet dhcp$/,
-     /address 1.2.3.4\/24$/,
+     %r{address 1.2.3.4/24$},
      /broadcast 1.2.3.255$/,
      /gateway 1.2.3.1$/,
      /vlan_raw_device spec6$/,
