@@ -34,7 +34,7 @@ action :create do
     mode '0644'
     variables(
       auto:         new_resource.onboot,
-      method:       new_resource.method,
+      iface_method:       new_resource.iface_method,
       device:       new_resource.device,
       family:       new_resource.family,
       address:      new_resource.address,

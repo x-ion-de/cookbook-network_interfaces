@@ -11,7 +11,7 @@ network_interfaces 'spec' do
   vlan_dev 'spec6'
   onboot true
   bootproto 'dhcp'
-  method 'dhcp'
+  iface_method 'dhcp'
   family 'inet'
   address '1.2.3.4/24'
   gateway '1.2.3.1'

@@ -16,7 +16,7 @@ attribute :bond_mode, kind_of: [String, Integer]
 attribute :vlan_dev, kind_of: String
 attribute :onboot, kind_of: [TrueClass, FalseClass], default: true
 attribute :bootproto, kind_of: String
-attribute :method, kind_of: String
+attribute :iface_method, kind_of: String
 attribute :family, kind_of: String, default: 'inet'
 attribute :address, kind_of: String
 attribute :gateway, kind_of: String
